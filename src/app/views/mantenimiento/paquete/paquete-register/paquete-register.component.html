@@ -1,0 +1,239 @@
+<form [formGroup]="myForm" class="formulario-modal">
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <label hidden for=""><strong>ID PAQUETE</strong></label>
+        <input
+          hidden
+          type="number"
+          class="form-control"
+          formControlName="iD_Paquete"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>Imagen del Paquete</strong></label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="imagenPaquete"
+        />
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>DESTINO</strong></label>
+        <select class="form-select" name="iD_Destino" formControlName="iD_Destino">
+          <option value="0">Seleccione un Destino</option>
+          <option [value]="i.iD_Destino" *ngFor="let i of destino">
+            {{ i.nombre }}
+          </option>
+        </select>
+        <div *ngIf="warningShown && (!myForm.get('iD_Destino')?.value || myForm.get('iD_Destino')?.value === '0')" class="text-danger">
+          El destino es obligatoria.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>NOMBRE DEL PAQUETE</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre"
+          placeholder="Ingrese Nombre Paquete"
+        />
+        <div *ngIf="warningShown && myForm.get('nombrePaquete')?.invalid" class="text-danger">
+          El nombre del paquete es obligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>DESCRIPCION</strong></label>
+        <textarea 
+          class="form-control" 
+          formControlName="descripcion" 
+          rows="5"
+          style="height: 100px; overflow: auto; resize: none;"
+          placeholder="Ingrese Descripcion del Paquete">
+        </textarea>
+        <div *ngIf="warningShown && myForm.get('descripcion')?.invalid" class="text-danger">
+          La descripción del paquete es obligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>DURACION</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="duracion"
+          placeholder="Ingrese Duración Paquete"
+        />
+        <div *ngIf="warningShown && myForm.get('nombrePaquete')?.invalid" class="text-danger">
+          La duración del paquete es obligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>DURACIÓN</strong></label>
+        <select id="unidades" class="form-select" name="unidad_Medida" formControlName="duracion">
+          <option value="" disabled selected hidden>Seleccione Unidad de Medida</option>
+          <option value="ud.">ud.</option>
+          <option value="kg.">kg.</option>
+          <option value="Lt.">Lt.</option>
+        </select>
+        <div *ngIf="warningShown && myForm.get('unidad_Medida')?.invalid" class="text-danger">
+          La unidad de medida es obligatoria.
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>PRECIO BASE</strong></label>
+        <input
+          type="number"
+          step="any"
+          step=".01"
+          class="form-control"
+          formControlName="precio_Base"
+          placeholder="Ingrese precio base del paquete"
+        />
+      </div>
+    </div>
+  </div>
+  
+
+  
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>TIPO</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="tipo"
+          placeholder="Ingrese Tipo del Paquete"
+        />
+        <div *ngIf="warningShown && myForm.get('tipo')?.invalid" class="text-danger">
+          El tipo es obligatorio.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>FECHA INICIO</strong></label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="fecha_Inicio"
+          placeholder="Ingrese Fecha Inicio"
+          id="datepick"
+          onfocus="this.min=new Date().toISOString().split('T')[0]"
+        />
+        <div *ngIf="warningShown && myForm.get('fecha_Inicio')?.hasError('fecha_Inicio_Required')" class="text-danger">
+          La fecha de inicio es obligatoria.
+        </div>
+        <div *ngIf="warningShown && myForm.get('fecha_Inicio')?.hasError('fecha_Inicio_Invalid')" class="text-danger">
+          La fecha de inicio debe ser mayor que la fecha actual.
+        </div>        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>FECHA FIN</strong></label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="fecha_Fin"
+          placeholder="Ingrese Fecha Fin"
+          id="datepick"
+          onfocus="this.min=new Date().toISOString().split('T')[0]"
+        />
+        <div *ngIf="warningShown && myForm.get('fecha_Fin')?.hasError('fecha_Fin_Required')" class="text-danger">
+          La fecha de fin es obligatoria.
+        </div>
+        <div *ngIf="warningShown && myForm.get('fecha_Fin')?.hasError('fechaFin_Invalid')" class="text-danger">
+          La fecha de fin debe ser mayor que la fecha actual.
+        </div>        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>INCLUSIONES</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="inclusiones"
+          placeholder="Ingrese Inclusiones"
+        />        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="form-group">
+        <label for=""><strong>EXCLUSIONES</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="exclusiones"
+          placeholder="Ingrese Exclusiones"
+        />       
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <button
+        (click)="save()"
+        class="btn btn-primary btn-sm float-end mr-2 ml-2"
+      >
+        <i class="fas fa-save"></i> Guardar
+      </button>
+      <button
+        (click)="closeModal(false)"
+        class="btn btn-danger btn-sm float-end mr-2 ml-2"
+      >
+        <i class="fas fa-ban"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</form>
